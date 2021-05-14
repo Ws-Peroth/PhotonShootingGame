@@ -26,7 +26,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     void Awake()
     {
         bulletSpeed = 8;
-        shotDelay = 0.1f;
+        shotDelay = 0.2f;
 
         if (networkManager == null)
         {
@@ -76,6 +76,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         GameObject player = PhotonNetwork.Instantiate(nameof(Player), new Vector3(1.5f, 20, 0), Quaternion.identity);
         CameraMove.cameraMoveManager.player = player;
+
         respawnPanel.SetActive(false);
         PlayerUI.SetActive(true);
         HpBarUI.fillAmount = 1f;

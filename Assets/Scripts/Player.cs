@@ -58,6 +58,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         // ↑ 점프, 바닥체크
         isGround = Physics2D.OverlapCircle((Vector2)transform.position
             + new Vector2(0, -0.5f), 0.07f, 1 << LayerMask.NameToLayer("Ground"));
+        // 1 << LayerMask.NameToLayer("Ground") : Select Ground Layer
 
         AN.SetBool("jump", !isGround);
 
