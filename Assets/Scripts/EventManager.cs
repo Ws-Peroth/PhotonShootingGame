@@ -7,6 +7,14 @@ using Photon.Pun;
 using Photon.Chat;
 using ExitGames.Client.Photon;
 
+
+enum EventCode
+{
+    playerPosition,
+    attack,
+    spawn
+}
+
 public class EventManager : MonoBehaviour, IOnEventCallback
 {
     public static EventManager eventManager;
