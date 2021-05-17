@@ -5,6 +5,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
 using Cinemachine;
+using ExitGames.Client.Photon;
 public class Player : MonoBehaviourPunCallbacks, IPunObservable
 {
     public Rigidbody2D RB;
@@ -143,4 +144,33 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             HealthImage.fillAmount = (float)stream.ReceiveNext();
         }
     }
+
+
+
+
+    public void EventSender()
+    {
+        byte evCode = 0; // Event Identifier
+
+        object[] content = new object[] { };
+        // Array contains the target position and the IDs of the selected units
+        RaiseEventOptions raiseEventOptions =
+                new RaiseEventOptions
+                {
+                    Receivers = ReceiverGroup.All
+                };
+        // You would have to set the Receivers to All in order to receive this event on the local client as well
+        SendOptions sendOptions =
+                new SendOptions
+                {
+                    Reliability = true,
+                    Channel = 0,
+                    DeliveryMode = DeliveryMode.UnreliableUnsequenced,
+                    Encrypt =  false
+                };
+        PhotonNetwork.RaiseEvent(evCode, content, raiseEventOptions, sendOptions);
+    }
+
+
+
 }
