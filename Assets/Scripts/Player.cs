@@ -107,7 +107,8 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
     [PunRPC] void FlipXRPC(float axis) => SR.flipX = axis == -1;
 
-    [PunRPC] void JumpRPC()
+    [PunRPC]
+    void JumpRPC()
     {
         RB.velocity = Vector2.zero;
         RB.AddForce(Vector2.up * 700);
@@ -143,32 +144,6 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             curPos = (Vector3)stream.ReceiveNext();
             HealthImage.fillAmount = (float)stream.ReceiveNext();
         }
-    }
-
-
-
-
-    public void EventSender()
-    {
-        byte evCode = 0; // Event Identifier
-
-        object[] content = new object[] { };
-        // Array contains the target position and the IDs of the selected units
-        RaiseEventOptions raiseEventOptions =
-                new RaiseEventOptions
-                {
-                    Receivers = ReceiverGroup.All
-                };
-        // You would have to set the Receivers to All in order to receive this event on the local client as well
-        SendOptions sendOptions =
-                new SendOptions
-                {
-                    Reliability = true,
-                    Channel = 0,
-                    DeliveryMode = DeliveryMode.UnreliableUnsequenced,
-                    Encrypt =  false
-                };
-        PhotonNetwork.RaiseEvent(evCode, content, raiseEventOptions, sendOptions);
     }
 
 
