@@ -8,11 +8,11 @@ using Photon.Chat;
 using ExitGames.Client.Photon;
 
 
-enum EventCode
+public enum EventCode : byte
 {
-    playerPosition,
-    attack,
-    spawn
+    spawn = 1,
+    playerPosition = 2,
+    attack = 3,
 }
 
 public class EventManager : MonoBehaviour, IOnEventCallback
@@ -22,6 +22,15 @@ public class EventManager : MonoBehaviour, IOnEventCallback
     public void EventListener(EventData photonEvent)
     {
         ((IOnEventCallback)eventManager).EventListener(photonEvent);
+
+    }
+
+    public byte EventCodeToInt(EventCode eventCode)
+    {
+        if (eventCode == EventCode.spawn) return 1;
+        else if (eventCode == EventCode.playerPosition) return 2;
+        else if (eventCode == EventCode.attack) return 3;
+        else return 0;
     }
 
     // Start is called before the first frame update

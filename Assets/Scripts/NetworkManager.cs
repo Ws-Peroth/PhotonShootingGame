@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
-
+using ExitGames.Client.Photon;
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
     public static NetworkManager networkManager = null;
@@ -120,4 +120,20 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         HpBarUI.fillAmount -= 0.1f;
         HpText.text = (int)(HpBarUI.fillAmount * 100) + " / 100";
     }
+
+    public void PlayerSpawn()
+    {
+        // Event Identifier
+        byte evCode = EventManager.eventManager.EventCodeToInt(EventCode.spawn);
+
+        // send Data
+        object[] content = new object[] { new Vector3(1.5f, 20, 0) };
+
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others };
+
+        SendOptions sendOptions = new SendOptions { Reliability = true };
+
+        PhotonNetwork.RaiseEvent(evCode, content, raiseEventOptions, sendOptions);
+    }
+
 }
